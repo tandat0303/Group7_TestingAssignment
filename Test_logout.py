@@ -6,9 +6,6 @@ def test_logout(driver):
     """
     Test the logout functionality by first logging in and then logging out.
     """
-    # Navigate to the login page
-    driver.get('http://localhost/eCommerceSite-PHP/login.php')
-
     # Perform login using the reusable login function
     login(driver, "ls17189a3.11@gmail.com", "123456")
 
