@@ -33,6 +33,21 @@ def test_search_spaceKW(driver, keyword):
     # The website show all products when the user search space keyword
     assert "search_text=+" in driver.current_url
 
+@pytest.mark.parametrize("keyword", [("Women's Plus-Size Shirt Dress with Gold Hardware      ")])
+def test_search_space(driver, keyword):
+    search(driver, keyword)
+    assert  "Women's Plus-Size Shirt Dress with Gold Hardware" in driver.page_source
+
+@pytest.mark.parametrize("keyword", [("             Women's Plus-Size Shirt Dress with Gold Hardware")])
+def test_search_space(driver, keyword):
+    search(driver, keyword)
+    assert  "Women's Plus-Size Shirt Dress with Gold Hardware" in driver.page_source
+
+@pytest.mark.parametrize("keyword", [("Women's Plus-Size          Shirt Dress with Gold Hardware")])
+def test_search_space(driver, keyword):
+    search(driver, keyword)
+    assert  "Women's Plus-Size Shirt Dress with Gold Hardware" in driver.page_source
+    
 #Test the search functionality with space keyword
 @pytest.mark.parametrize("keyword", [("")])
 def test_search_emptyKW(driver, keyword):
