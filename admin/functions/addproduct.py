@@ -1,10 +1,10 @@
 from driver import *
-from Test_login_logout import *
+from functions.login import login
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
-def add_product(driver,product):
-    test_user_login(driver)
+def add_product(driver, email, password, product):
+    login(driver, email, password)
     for info in product:
         top_level_category = info["top_level_category"]
         mid_level_category = info["mid_level_category"]
@@ -19,7 +19,7 @@ def add_product(driver,product):
         is_featured = info["is_featured"]
         is_active = info["is_active"]
 
-        driver.get("http://localhost/Phpcode/eCommerceSite-PHP/admin/product.php")
+        driver.find_element(By.LINK_TEXT,"Product Management").click()
         driver.find_element(By.LINK_TEXT,"Add Product").click()
 
         driver.find_element(By.XPATH, "/html/body/div[1]/div/section[2]/div/div/form/div/div/div[1]/div/span/span[1]/span/span[1]").click()
@@ -59,11 +59,11 @@ def add_product(driver,product):
         color_input.send_keys(color)
         color_input.send_keys(Keys.RETURN)
         time.sleep(1)
-        # if featured_photo:
-        #     featured_photo_input = driver.find_element(By.NAME, "p_featured_photo").click()
-        #     featured_photo_input.send_keys(featured_photo)  
+        if featured_photo:
+            featured_photo_input = driver.find_element(By.NAME, "p_featured_photo")
+            featured_photo_input.send_keys(featured_photo)  
 
-        # time.sleep(1)  
+        time.sleep(1)  
         
         featured=Select(driver.find_element(By.NAME,"p_is_featured"))
         featured.select_by_visible_text(is_featured)
@@ -75,5 +75,3 @@ def add_product(driver,product):
         
         driver.find_element(By.NAME,"form1").click()
         time.sleep(2)
-
-        return "Product is added successfully."

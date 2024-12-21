@@ -1,19 +1,16 @@
 from driver import *
-from Test_login_logout import *
+from functions.login import login
+from functions.search import search
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
-def update_product(driver, product_name, updated_info):
-    test_user_login(driver)
+def update_product(driver, email, password, product_name, updated_info):
+    login(driver, email, password)
 
-    # Truy cập trang danh sách sản phẩm
-    driver.get("http://localhost/Phpcode/eCommerceSite-PHP/admin/product.php")
+    driver.find_element(By.LINK_TEXT, "Product Management").click()
     
     # Tìm kiếm sản phẩm cần cập nhật theo tên (hoặc bạn có thể thay bằng thông tin khác)
-    search_box = driver.find_element(By.XPATH, "/html/body/div[1]/div/section[2]/div/div/div/div/div/div[1]/div[2]/div/label/input")
-    search_box.send_keys(product_name)
-
-    time.sleep(2)
+    search(driver, product_name)
 
     # Click vào link Edit của sản phẩm tìm thấy
     try:
@@ -108,5 +105,3 @@ def update_product(driver, product_name, updated_info):
     # Submit form để cập nhật sản phẩm
     driver.find_element(By.NAME, "form1").click()
     time.sleep(2)
-    
-    return "Product updated successfully."
