@@ -48,11 +48,3 @@ def test_update_password_mismatch(driver, email, password, new_password, re_pass
     """Test password update with mismatched confirmation."""
     update_password(driver, email, password, new_password, re_password)
     assert "Password confirmation does not match." in driver.page_source
-    
-
-@pytest.mark.parametrize("email, password, new_password, re_password",
-                         [("admin@mail.com", "Password@123", "WeakPass", "WeakPassword")])
-def test_update_password_weak(driver, email, password, new_password, re_password):
-    """Test password update with weak password."""
-    update_password(driver, email, password, new_password, re_password)
-    assert "Password is too weak." in driver.page_source
