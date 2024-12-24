@@ -26,6 +26,7 @@ def test_add_product_valid(driver, email, password, product):
     
     assert "Product is added successfully." in driver.page_source
 
+
 @pytest.mark.parametrize("email, password, product",
                          [("admin@mail.com",
                            "Password@123",
@@ -46,6 +47,7 @@ def test_add_product_missing_field(driver, email, password, product):
     add_product(driver, email, password, product)
     assert "Product name can not be empty" in driver.page_source
 
+
 @pytest.mark.parametrize("email, password, product",
                          [("admin@mail.com",
                            "Password@123",
@@ -65,6 +67,7 @@ def test_add_product_missing_field(driver, email, password, product):
 def test_add_product_invalid_price(driver, email, password, product):
     add_product(driver, email, password, product)
     assert " Price and quantity must be greater than 0" in driver.page_source
+    
 
 # Test case 2: Sửa thông tin sản phẩm
 @pytest.mark.parametrize("email, password, product_name, updated_info",

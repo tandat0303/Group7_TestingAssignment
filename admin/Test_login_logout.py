@@ -12,20 +12,24 @@ def test_admin_login(driver, email, password):
     login(driver, email, password)
     verify_text_in_page(driver, "Dashboard")
 
+
 @pytest.mark.parametrize("email, password", [("admin@mail.com", "Password#123")])
 def test_admin_invalid_login_pass(driver, email, password):
     login(driver, email, password)
     verify_text_in_page(driver, "Password does not match")
+
 
 @pytest.mark.parametrize("email, password", [("invalid@mail.com", "Password@123")])
 def test_admin_invalid_login_email(driver, email, password):
     login(driver, email, password)
     verify_text_in_page(driver, "Email Address does not match")
 
+
 @pytest.mark.parametrize("email, password", [("", "")])
 def test_admin_empty_login(driver, email, password):
     login(driver, email, password)
     verify_text_in_page(driver, "Email and/or Password can not be empty")
+    
 
 @pytest.mark.parametrize("email, password", [("admin@mail.com", "Password@123")])
 def test_admin_logout(driver, email, password):
